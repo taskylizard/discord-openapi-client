@@ -10,12 +10,15 @@
   "files": [
     "generated/**/*.ts"
   ],
+  "packageManager": "pnpm@9.5.0",
   "author": "taskylizard",
   "license": "MIT",
   "devDependencies": {
-    "bumpp": "^9.4.1",
     "prettier": "^3.3.3",
     "release-it": "^17.6.0",
     "release-it-pnpm": "^4.6.2"
+  },
+  "dependencies": {
+    "orval": "^6.31.0"
   }
 }
