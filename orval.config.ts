@@ -30,7 +30,7 @@ export default defineConfig({
     },
     hooks: {
       afterAllFilesWrite:
-        "sed -i 's/formData/createGuildStickerBody/g' generated/generated/default/default.ts",
+        "sed -i 's/formData/createGuildStickerBody/g' ./generated/generated/target.ts",
     },
   },
 });
