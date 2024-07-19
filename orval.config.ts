@@ -1,11 +1,11 @@
 import { defineConfig } from "orval";
 
 export default defineConfig({
-  petstore: {
+  discord: {
     output: {
+      headers: true,
       baseUrl: "https://discord.com/api/v10",
-      prettier: true,
-      mode: "tags-split",
+      mode: "single",
       workspace: "generated/",
       clean: true,
       target: "generated/target.ts",
@@ -27,6 +27,10 @@ export default defineConfig({
     },
     input: {
       target: "./openapi/specs/openapi.json",
+    },
+    hooks: {
+      afterAllFilesWrite:
+        "sed -i 's/formData/createGuildStickerBody/g' generated/generated/default/default.ts",
     },
   },
 });
