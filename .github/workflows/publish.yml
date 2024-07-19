@@ -42,3 +42,5 @@ jobs:
 
       - name: Release
         run: pnpm release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
