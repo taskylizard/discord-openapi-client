@@ -12,8 +12,8 @@ import {
   pascal,
   stringify,
   toObjectString,
-  jsDoc,
-} from "@orval/core";
+  jsDoc
+} from '@orval/core';
 
 export const generateRequestFunction = (
   {
@@ -29,9 +29,9 @@ export const generateRequestFunction = (
     deprecated,
     formData,
     formUrlEncoded,
-    override,
+    override
   }: GeneratorVerbOptions,
-  { route }: GeneratorOptions,
+  { route }: GeneratorOptions
 ) => {
   const isRequestOptions = override?.requestOptions !== false;
   const isFormData = override?.formData !== false;
@@ -43,11 +43,11 @@ export const generateRequestFunction = (
       (prop) =>
         prop.type === GetterPropType.PARAM ||
         prop.type === GetterPropType.NAMED_PATH_PARAMS ||
-        prop.type === GetterPropType.QUERY_PARAM,
+        prop.type === GetterPropType.QUERY_PARAM
     ),
-    "implementation",
+    'implementation'
   );
-  const getUrlFnImplementation = `export const ${getUrlFnName} = (${getUrlFnProps}) => {
+  const getUrlFnImplementation = `export const ${getUrlFnName} = (${getUrlFnProps}): string => {
 ${
   queryParams
     ? `
@@ -60,21 +60,21 @@ ${
       normalizedParams.append(key, value.toString());
     }
   });`
-    : ""
+    : ''
 }
 
   ${
     queryParams
-      ? `return normalizedParams.size ? \`${route}${"?${normalizedParams.toString()}"}\` : \`${route}\``
+      ? `return normalizedParams.size ? \`${route}${'?${normalizedParams.toString()}'}\` : \`${route}\``
       : `return \`${route}\``
   }
 }\n`;
 
   const responseTypeName = pascal(
-    fetchResponseTypeName(operationName),
-  ).replaceAll("200", "Success");
+    fetchResponseTypeName(operationName)
+  ).replaceAll('200', 'Success');
   const responseTypeImplementation = `export type ${responseTypeName} = {
-  data: ${response.definition.success || "unknown"};
+  data: ${response.definition.success || 'unknown'};
   status: number;
 }`;
 
@@ -83,7 +83,7 @@ ${
       (prop) =>
         prop.type === GetterPropType.PARAM ||
         prop.type === GetterPropType.QUERY_PARAM ||
-        prop.type === GetterPropType.NAMED_PATH_PARAMS,
+        prop.type === GetterPropType.NAMED_PATH_PARAMS
     )
     .map((param) => {
       if (param.type === GetterPropType.NAMED_PATH_PARAMS) {
@@ -91,29 +91,29 @@ ${
       }
       return param.name;
     })
-    .join(",");
+    .join(',');
 
-  const args = `${toObjectString(props, "implementation")} ${isRequestOptions ? `options?: RequestInit` : ""}`;
+  const args = `${toObjectString(props, 'implementation')} ${isRequestOptions ? `options?: RequestInit` : ''}`;
   const returnType = `Promise<${responseTypeName}>`;
 
   const globalFetchOptions = isObject(override?.requestOptions)
     ? `${stringify(override?.requestOptions)?.slice(1, -1)?.trim()}`
-    : "";
+    : '';
   const fetchMethodOption = `method: '${verb.toUpperCase()}'`;
 
   const requestBodyParams = generateBodyOptions(
     body,
     isFormData,
-    isFormUrlEncoded,
+    isFormUrlEncoded
   );
   const fetchBodyOption = requestBodyParams
     ? `body: JSON.stringify(${requestBodyParams})`
-    : "";
+    : '';
 
   const fetchFnOptions = `${getUrlFnName}(${getUrlFnProperties}),
-  {${globalFetchOptions ? "\n" : ""}      ${globalFetchOptions}
-    ${isRequestOptions ? "...options," : ""}
-    ${fetchMethodOption}${fetchBodyOption ? "," : ""}
+  {${globalFetchOptions ? '\n' : ''}      ${globalFetchOptions}
+    ${isRequestOptions ? '...options,' : ''}
+    ${fetchMethodOption}${fetchBodyOption ? ',' : ''}
     ${fetchBodyOption}
   }
 `;
@@ -130,18 +130,18 @@ ${
     formUrlEncoded,
     body,
     isFormData,
-    isFormUrlEncoded,
+    isFormUrlEncoded
   });
 
   const fetchImplementationBody = mutator
     ? customFetchResponseImplementation
-    : `${bodyForm ? `  ${bodyForm}\n` : ""}` +
+    : `${bodyForm ? `  ${bodyForm}\n` : ''}` +
       `  ${fetchResponseImplementation}`;
 
   const fetchImplementationJsDoc = jsDoc({
     description: doc,
     deprecated,
-    summary,
+    summary
   });
 
   const fetchImplementation = `${fetchImplementationJsDoc}\nexport const ${operationName} = async (${args}): ${returnType} => {\n${fetchImplementationBody}}`;
@@ -159,7 +159,7 @@ export const fetchResponseTypeName = (operationName: string) =>
 
 export const generateClient: ClientBuilder = (verbOptions, options) => {
   const imports = generateVerbImports(verbOptions).map((generator) => {
-    generator.name = generator.name.replaceAll("200", "Response");
+    generator.name = generator.name.replaceAll('200', 'Response');
     return generator;
   });
 
@@ -167,13 +167,13 @@ export const generateClient: ClientBuilder = (verbOptions, options) => {
 
   return {
     implementation: `${functionImplementation}\n`,
-    imports,
+    imports
   };
 };
 
 const fetchClientBuilder: ClientGeneratorsBuilder = {
   client: generateClient,
-  dependencies: () => [],
+  dependencies: () => []
 };
 
 export const builder = () => () => fetchClientBuilder;

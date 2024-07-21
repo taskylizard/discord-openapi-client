@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@taskylizard/biome-config"],
   "files": {
-    "include": ["./generated/generated/target.ts", "src/index.ts"]
+    "include": ["./generated/generated/target.ts", "src/index.ts", "lib/*"]
   },
   "vcs": {
     "useIgnoreFile": false
