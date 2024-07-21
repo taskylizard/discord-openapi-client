@@ -1,5 +1,20 @@
 {
   "name": "@tasky/discord-openapi-client",
   "version": "0.0.4",
-  "exports": "./src/index.ts"
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": [
+      "jsr.json",
+      "README.md",
+      "LICENSE",
+      "./generated/**/*.ts",
+      "./src/index.ts",
+      "./lib/custom-fetch.ts"
+    ],
+    "exclude": [
+      "./lib/builder.ts",
+      "!generated/index.ts",
+      "!generated/generated/target.ts"
+    ]
+  }
 }
