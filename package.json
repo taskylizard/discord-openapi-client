@@ -7,7 +7,7 @@
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
     "lint:fix:unsafe": "biome lint --unsafe",
-    "release": "release-it --ci -i",
+    "release": "release-it --ci -i=patch",
     "build": "orval && unbuild --minify"
   },
   "repository": {
