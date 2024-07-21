@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@taskylizard/biome-config"],
+  "files": {
+    "include": ["./generated/generated/target.ts", "src/index.ts"]
+  },
+  "vcs": {
+    "useIgnoreFile": false
+  },
+  "linter": {
+    "enabled": false
+  }
+}

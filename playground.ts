@@ -1,3 +1,9 @@
-import { getUser, ButtonType } from "./generated";
+import { getUser } from './generated';
 
-const k = await getUser("");
+const user = await getUser('', {
+  headers: {
+    Authorization: `Bot ${process.env.TOKEN}`
+  }
+});
+
+console.info(user);

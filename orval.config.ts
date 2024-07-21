@@ -1,4 +1,5 @@
 import { defineConfig } from "orval";
+import builder from "./lib/builder";
 
 export default defineConfig({
   discord: {
@@ -9,11 +10,11 @@ export default defineConfig({
       workspace: "generated/",
       clean: true,
       target: "generated/target.ts",
-      client: "fetch",
+      client: builder(),
       override: {
         mutator: {
           name: "customFetch",
-          path: "../custom-fetch.ts",
+          path: "../lib/custom-fetch.ts",
         },
         useBigInt: true,
         useNativeEnums: true,

@@ -2,3 +2,4 @@ node_modules/
 openapi/
 generated/
 dist/
+.env
