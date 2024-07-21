@@ -1,6 +1,6 @@
 {
   "name": "@tasky/discord-openapi-client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "exports": "./src/index.ts",
   "publish": {
     "include": [
