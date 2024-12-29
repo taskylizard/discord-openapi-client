@@ -7,14 +7,9 @@
       "jsr.json",
       "README.md",
       "LICENSE",
-      "./generated/**/*.ts",
       "./src/index.ts",
-      "./lib/custom-fetch.ts"
+      "./src/schema.ts"
     ],
-    "exclude": [
-      "./lib/builder.ts",
-      "!generated/index.ts",
-      "!generated/generated/target.ts"
-    ]
+    "exclude": []
   }
 }
