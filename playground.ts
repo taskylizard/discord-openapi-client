@@ -1,9 +1,8 @@
-import { getUser } from './generated';
+import { client } from './src';
 
-const user = await getUser('', {
-  headers: {
-    Authorization: `Bot ${process.env.TOKEN}`
-  }
+
+const user = await client.GET('/users/{user_id}', {
+  params: { path: { user_id: '123456789012345678' } }
 });
 
 console.info(user);

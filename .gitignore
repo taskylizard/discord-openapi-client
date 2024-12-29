@@ -3,3 +3,4 @@ openapi/
 generated/
 dist/
 .env
+src/schema.ts

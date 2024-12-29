@@ -8,7 +8,7 @@
     "lint:fix": "biome lint --write",
     "lint:fix:unsafe": "biome lint --unsafe",
     "release": "release-it --ci -i=patch",
-    "build": "orval && unbuild --minify"
+    "build": "tsx generator.ts && unbuild --minify"
   },
   "repository": {
     "url": "https://github.com/taskylizard/discord-openapi-client"
@@ -32,12 +32,16 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
-    "@orval/core": "^6.31.0",
     "@taskylizard/biome-config": "^1.0.1",
     "@types/node": "^20.14.11",
-    "orval": "^6.31.0",
+    "openapi-typescript": "^7.4.4",
     "release-it": "^17.6.0",
     "release-it-pnpm": "^4.6.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
     "unbuild": "^2.0.0"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.13.3"
   }
 }
